@@ -9,9 +9,6 @@ if (gitlabSourceRepoName == "prometheus-server-dev-config")  {
 } else {
     prometheus_server = "unknown"
 }
-def send_discord_notification {
-    discordSend webhookURL: "https://discord.com/api/webhooks/887302475709829121/zWSO4V2paQ1TNI6fooqfZj2NuT-QaWFy8z_y5UG_WJI8yk0agVRTeeGUoW3OYJn5Y_qT"
-}
 
 pipeline {
     agent any
@@ -116,7 +113,7 @@ ENDSSH'
     }
     post {
         always {
-            send_discord_notification
+            discordSend webhookURL: "https://discord.com/api/webhooks/887302475709829121/zWSO4V2paQ1TNI6fooqfZj2NuT-QaWFy8z_y5UG_WJI8yk0agVRTeeGUoW3OYJn5Y_qT"
         }
     }
 }
