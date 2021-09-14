@@ -10,6 +10,12 @@ if (gitlabSourceRepoName == "prometheus-server-dev-config")  {
     prometheus_server = "unknown"
 }
 
+def send_discord_notif() {
+
+    discordSend(description: "${currentBuild.currentResult} for ${gitlabSourceRepoName}\nBuild: ${env.BUILD_NUMBER} \nMore info at: \n${env.BUILD_URL}", footer: "Gitlab: ${gitlabSourceRepoHttpUrl}", unstable: true, link: env.BUILD_URL, result: "${currentBuild.currentResult}", title: "${JOB_NAME}", webhookURL: 'https://discord.com/api/webhooks/887302475709829121/zWSO4V2paQ1TNI6fooqfZj2NuT-QaWFy8z_y5UG_WJI8yk0agVRTeeGUoW3OYJn5Y_qT')
+
+}
+
 pipeline {
     agent any
     environment {
