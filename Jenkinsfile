@@ -119,7 +119,7 @@ ENDSSH'
     }
     post {
         always {
-            send_discord_notif
+            send_discord_notif()
         }
     }
 }
