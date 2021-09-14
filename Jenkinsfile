@@ -119,8 +119,7 @@ ENDSSH'
     }
     post {
         always {
-            discordSend(description: "${currentBuild.currentResult}: Job ${env.JOB_NAME} \nBuild: ${env.BUILD_NUMBER} \nMore info at: \n${env.BUILD_URL}", footer: 'No-Code', unstable: true, link: env.BUILD_URL, result: "${currentBuild.currentResult}", title: "${JOB_NAME} << CLICK", webhookURL: 'https://discord.com/api/webhooks/887302475709829121/zWSO4V2paQ1TNI6fooqfZj2NuT-QaWFy8z_y5UG_WJI8yk0agVRTeeGUoW3OYJn5Y_qT')
-
+            send_discord_notif
         }
     }
 }
