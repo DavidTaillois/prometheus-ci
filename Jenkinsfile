@@ -17,7 +17,7 @@ def send_discord_notif() {
 }
 
 pipeline {
-    agent { label 'KelkooSlave' }
+    agent { label 'KelkooFrontEndSlave' }
     environment {
         KOOKEL_CREDS = credentials('f0ebc6fa-410a-4207-8636-f267da6891ae')
     }
