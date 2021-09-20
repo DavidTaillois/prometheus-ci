@@ -75,7 +75,10 @@ ENDSSH'
                     sudo systemctl restart prometheus.service
 ENDSSH'
                 '''
-                sh 'curl '+ci_server+':9090/graph'
+                sh '''
+                   sleep 10s
+                   curl '''+ci_server+''':9090/graph
+                '''
             }
         }
         stage('Deployment') {
