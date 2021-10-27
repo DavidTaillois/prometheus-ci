@@ -6,6 +6,8 @@ if (gitlabSourceRepoName == "prometheus-server-dev-config")  {
     prometheus_server = ['dc1-mon-dev-prom-01.dev.dc1.kelkoo.net','dc1-mon-dev-prom-02.dev.dc1.kelkoo.net']
 } else if(gitlabSourceRepoName == "prometheus-server-prod-config") {
     prometheus_server = ['dc1-mon-prod-prom-01.prod.dc1.kelkoo.net','dc1-mon-prod-prom-02.prod.dc1.kelkoo.net']
+} else if(gitlabSourceRepoName == "prometheus-server-infra-config") {
+    prometheus_server = ['dc1-mon-infra-prom-02.infra.dc1.kelkoo.net','dc1-mon-infra-prom-03.infra.dc1.kelkoo.net']
 } else {
     prometheus_server = "unknown"
 }
