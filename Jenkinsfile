@@ -46,13 +46,13 @@ ENDSSH'
         stage('Lint of the code') {
             steps {
                 sh '''
-                    ssh -i $KOOKEL_CREDS $KOOKEL_CREDS_USR@'''+ci_server+''' 'bash -s  << 'ENDSSH'
+                    ssh -o 'BatchMode yes' -i $KOOKEL_CREDS $KOOKEL_CREDS_USR@'''+ci_server+''' 'bash -s  << 'ENDSSH'
                     cd /tmp/prometheus
                     yamllint *
 ENDSSH'
                 '''
                 sh '''
-                    ssh -i $KOOKEL_CREDS $KOOKEL_CREDS_USR@'''+ci_server+''' 'bash -s  << 'ENDSSH'
+                    ssh -o 'BatchMode yes' -i $KOOKEL_CREDS $KOOKEL_CREDS_USR@'''+ci_server+''' 'bash -s  << 'ENDSSH'
                     sudo promtool check config /tmp/prometheus/prometheus.yml
 ENDSSH'
                 '''
@@ -61,7 +61,7 @@ ENDSSH'
         stage('Integration Test') {
             steps {
                 sh '''
-                    ssh -i $KOOKEL_CREDS $KOOKEL_CREDS_USR@'''+ci_server+''' 'bash -s << 'ENDSSH'
+                    ssh -o 'BatchMode yes' -i $KOOKEL_CREDS $KOOKEL_CREDS_USR@'''+ci_server+''' 'bash -s << 'ENDSSH'
                     sudo rm -rf /etc/prometheus/.git
                     sudo cp -rf /tmp/prometheus/.git /etc/prometheus/
                     rm -rf /tmp/prometheus
@@ -71,7 +71,7 @@ ENDSSH'
 ENDSSH'
                 '''
                 sh '''
-                    ssh -i $KOOKEL_CREDS $KOOKEL_CREDS_USR@'''+ci_server+''' 'bash -s << 'ENDSSH'
+                    ssh -o 'BatchMode yes' -i $KOOKEL_CREDS $KOOKEL_CREDS_USR@'''+ci_server+''' 'bash -s << 'ENDSSH'
                     cd /etc/prometheus
                     sudo promtool check config prometheus.yml
                     sudo systemctl restart prometheus.service
@@ -88,7 +88,7 @@ ENDSSH'
                 script {
                     for (server in prometheus_server) {
                         sh '''
-                            ssh -i $KOOKEL_CREDS $KOOKEL_CREDS_USR@'''+server+''' 'bash -s << 'ENDSSH'
+                            ssh -o 'BatchMode yes' -i $KOOKEL_CREDS $KOOKEL_CREDS_USR@'''+server+''' 'bash -s << 'ENDSSH'
                             if [[ -d "/tmp/prometheus" ]];
                             then
                               rm -rf /tmp/prometheus
@@ -106,7 +106,7 @@ ENDSSH'
                 script {
                     for (server in prometheus_server) {
                         sh '''
-                            ssh -i $KOOKEL_CREDS $KOOKEL_CREDS_USR@'''+server+''' 'bash -s << 'ENDSSH'
+                            ssh -o 'BatchMode yes' -i $KOOKEL_CREDS $KOOKEL_CREDS_USR@'''+server+''' 'bash -s << 'ENDSSH'
                             cd /etc/prometheus
                             sudo promtool check config prometheus.yml
                             sudo systemctl reload prometheus.service
