@@ -15,7 +15,7 @@ if (gitlabSourceRepoName == "prometheus-server-dev-config")  {
 def set_thanos_replica(prometheus_server) {
 
      sh '''
-         ssh -o 'BatchMode yes' -i $KOOKEL_CREDS $KOOKEL_CREDS_USR@'''+server+''' 'bash -s << 'ENDSSH'
+         ssh -o 'BatchMode yes' -i $KOOKEL_CREDS $KOOKEL_CREDS_USR@'''+prometheus_server+''' 'bash -s << 'ENDSSH'
          sed -i 's/replica: a/replica: b/g' /etc/prometheus/prometheus.yml
 ENDSSH'
       '''
@@ -112,7 +112,7 @@ ENDSSH'
                         '''
                     }
                 }
-
+                
                 set_thanos_replica(prometheus_server[1])
 
                 script {
