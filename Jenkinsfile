@@ -3,13 +3,22 @@ def ci_server = 'dc1-mon-infra-prom-ci.infra.dc1.kelkoo.net'
 
 def prometheus_server
 if (gitlabSourceRepoName == "prometheus-server-dev-config")  {
-    prometheus_server = ['dc1-mon-dev-prom-01.dev.dc1.kelkoo.net','dc1-mon-dev-prom-02.dev.dc1.kelkoo.net']
+    prometheus_server = ['dc1-mon-dev-prom-01.dev.dc1.kelkoo.net']
 } else if(gitlabSourceRepoName == "prometheus-server-prod-config") {
     prometheus_server = ['dc1-mon-prod-prom-01.prod.dc1.kelkoo.net','dc1-mon-prod-prom-02.prod.dc1.kelkoo.net']
 } else if(gitlabSourceRepoName == "prometheus-server-infra-config") {
     prometheus_server = ['dc1-mon-infra-prom-02.infra.dc1.kelkoo.net','dc1-mon-infra-prom-03.infra.dc1.kelkoo.net']
 } else {
     prometheus_server = "unknown"
+}
+
+def set_thanos_replica(prometheus_server) {
+
+     sh '''
+         ssh -o 'BatchMode yes' -i $KOOKEL_CREDS $KOOKEL_CREDS_USR@'''+server+''' 'bash -s << 'ENDSSH'
+         sed -i 's/replica: a/replica: b/g' /etc/prometheus/prometheus.yml
+ENDSSH'
+      '''
 }
 
 def send_discord_notif() {
@@ -103,6 +112,9 @@ ENDSSH'
                         '''
                     }
                 }
+
+                set_thanos_replica(prometheus_server[1])
+
                 script {
                     for (server in prometheus_server) {
                         sh '''
