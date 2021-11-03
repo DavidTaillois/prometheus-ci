@@ -16,7 +16,7 @@ def set_thanos_replica(prometheus_server) {
 
      sh '''
          ssh -o 'BatchMode yes' -i $KOOKEL_CREDS $KOOKEL_CREDS_USR@'''+prometheus_server+''' 'bash -s << 'ENDSSH'
-         sed -i "s/replica: a/replica: b/g" /etc/prometheus/prometheus.yml
+         sudo sed -i "s/replica: a/replica: b/g" /etc/prometheus/prometheus.yml
 ENDSSH'
       '''
 }
