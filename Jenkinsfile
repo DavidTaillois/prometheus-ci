@@ -1,5 +1,5 @@
 #!groovy
-def ci_server = 'dc1-mon-infra-prom-ci.infra.dc1.kelkoo.net'
+def ci_server = '******'
 
 def prometheus_server
 if (gitlabSourceRepoName == "prometheus-server-dev-config")  {
